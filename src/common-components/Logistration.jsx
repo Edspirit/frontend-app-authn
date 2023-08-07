@@ -19,8 +19,10 @@ import { getTpaHint, updatePathWithQueryParams } from '../data/utils';
 import { LoginPage } from '../login';
 import { RegistrationPage } from '../register';
 import messages from './messages';
+import useSetFont from './useSetFont';
 
 const Logistration = (props) => {
+  useSetFont();
   const { intl, selectedPage } = props;
   const tpa = getTpaHint();
   const [institutionLogin, setInstitutionLogin] = useState(false);
