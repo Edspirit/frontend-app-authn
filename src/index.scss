@@ -5,3 +5,14 @@
 
 @import "@edx/frontend-component-cookie-policy-banner/build/_cookie-policy-banner";
 @import "sass/style";
+
+.lang_fa {
+  * {
+    font-family: IRANSans, FontAwesome, sans-serif !important ;
+  }
+}
+.lang_ar {
+  * {
+    font-family: NotoSansArabic, FontAwesome, sans-serif !important ;
+  }
+}
