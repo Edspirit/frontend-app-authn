@@ -3,6 +3,7 @@ import React from 'react';
 import { getConfig } from '@edx/frontend-platform';
 import { AppProvider } from '@edx/frontend-platform/react';
 import { Helmet } from 'react-helmet';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import {
@@ -19,26 +20,38 @@ import { ProgressiveProfiling } from './welcome';
 import './index.scss';
 
 registerIcons();
-
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Set staleTime to 5 minutes
+      staleTime: 5 * 60 * 1000,
+      // Set cacheTime to 60 minutes
+      cacheTime: 60 * 60 * 1000,
+    },
+  },
+});
 const MainApp = () => (
   <AppProvider store={configureStore()}>
-    <Helmet>
-      <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-    </Helmet>
-    <Switch>
-      <Route exact path="/">
-        <Redirect to={updatePathWithQueryParams(REGISTER_PAGE)} />
-      </Route>
-      <UnAuthOnlyRoute exact path={LOGIN_PAGE} render={() => <Logistration selectedPage={LOGIN_PAGE} />} />
-      <UnAuthOnlyRoute exact path={REGISTER_PAGE} component={Logistration} />
-      <UnAuthOnlyRoute exact path={RESET_PAGE} component={ForgotPasswordPage} />
-      <Route exact path={PASSWORD_RESET_CONFIRM} component={ResetPasswordPage} />
-      <Route exact path={WELCOME_PAGE} component={ProgressiveProfiling} />
-      <Route path={PAGE_NOT_FOUND} component={NotFoundPage} />
-      <Route path="*">
-        <Redirect to={PAGE_NOT_FOUND} />
-      </Route>
-    </Switch>
+    <QueryClientProvider client={queryClient}>
+      <Helmet>
+        <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
+      </Helmet>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to={updatePathWithQueryParams(REGISTER_PAGE)} />
+        </Route>
+        <UnAuthOnlyRoute exact path={LOGIN_PAGE} render={() => <Logistration selectedPage={LOGIN_PAGE} />} />
+        <UnAuthOnlyRoute exact path={REGISTER_PAGE} component={Logistration} />
+        <UnAuthOnlyRoute exact path={RESET_PAGE} component={ForgotPasswordPage} />
+        <Route exact path={PASSWORD_RESET_CONFIRM} component={ResetPasswordPage} />
+        <Route exact path={WELCOME_PAGE} component={ProgressiveProfiling} />
+        <Route path={PAGE_NOT_FOUND} component={NotFoundPage} />
+        <Route path="*">
+          <Redirect to={PAGE_NOT_FOUND} />
+        </Route>
+      </Switch>
+    </QueryClientProvider>
+
   </AppProvider>
 );
 
