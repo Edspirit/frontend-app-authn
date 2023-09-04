@@ -45,6 +45,7 @@ initialize({
         ENABLE_COPPA_COMPLIANCE: process.env.ENABLE_COPPA_COMPLIANCE || '',
         ENABLE_DYNAMIC_REGISTRATION_FIELDS: process.env.ENABLE_DYNAMIC_REGISTRATION_FIELDS || false,
         ENABLE_COOKIE_POLICY_BANNER: process.env.ENABLE_COOKIE_POLICY_BANNER || false,
+        AC_INSTANCE_CONFIG_API_URL: process.env.AC_INSTANCE_CONFIG_API_URL || null,
       });
     },
   },
