@@ -25,8 +25,10 @@ import {
   tpaProvidersSelector,
 } from './data/selectors';
 import messages from './messages';
+import useSetFont from './useSetFonts';
 
 const Logistration = (props) => {
+  useSetFont();
   const { selectedPage, tpaProviders } = props;
   const tpaHint = getTpaHint();
   const {
