@@ -20,6 +20,7 @@ import {
   tpaProvidersSelector,
 } from '../common-components/data/selectors';
 import messages from '../common-components/messages';
+import useSetFont from '../common-components/useSetFonts';
 import { LOGIN_PAGE, REGISTER_PAGE } from '../data/constants';
 import {
   getTpaHint, getTpaProvider, updatePathWithQueryParams,
@@ -29,6 +30,7 @@ import { RegistrationPage } from '../register';
 import { backupRegistrationForm } from '../register/data/actions';
 
 const Logistration = (props) => {
+  useSetFont();
   const { selectedPage, tpaProviders } = props;
   const tpaHint = getTpaHint();
   const {
