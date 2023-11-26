@@ -4,6 +4,8 @@ import { getConfig } from '@edx/frontend-platform';
 import { AppProvider } from '@edx/frontend-platform/react';
 import { Helmet } from 'react-helmet';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Route } from 'react-router-dom';
 
 import {
   EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute, Zendesk,
@@ -31,8 +33,20 @@ import './index.scss';
 
 registerIcons();
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Set staleTime to 5 minutes
+      staleTime: 5 * 60 * 1000,
+      // Set cacheTime to 60 minutes
+      cacheTime: 60 * 60 * 1000,
+    },
+  },
+});
+
 const MainApp = () => (
   <AppProvider store={configureStore()}>
+    <QueryClientProvider client={queryClient}>
     <Helmet>
       <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
     </Helmet>
@@ -57,6 +71,7 @@ const MainApp = () => (
       <Route path={PAGE_NOT_FOUND} element={<NotFoundPage />} />
       <Route path="*" element={<Navigate replace to={PAGE_NOT_FOUND} />} />
     </Routes>
+    </QueryClientProvider>
   </AppProvider>
 );
 
