@@ -24,6 +24,7 @@ const configuration = {
   INFO_EMAIL: process.env.INFO_EMAIL || '',
   ZENDESK_KEY: process.env.ZENDESK_KEY,
   ZENDESK_LOGO_URL: process.env.ZENDESK_LOGO_URL,
+  AC_INSTANCE_CONFIG_API_URL: process.env.AC_INSTANCE_CONFIG_API_URL || null,
 };
 
 export default configuration;
