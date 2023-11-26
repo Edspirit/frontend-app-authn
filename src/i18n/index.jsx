@@ -3,6 +3,7 @@ import caMessages from './messages/ca.json';
 // no need to import en messages-- they are in the defaultMessage field
 import dedeMessages from './messages/de_DE.json';
 import es419Messages from './messages/es_419.json';
+import faIRMessages from './messages/fa_IR.json';
 import frMessages from './messages/fr.json';
 import heMessages from './messages/he.json';
 import hiMessages from './messages/hi.json';
@@ -19,6 +20,7 @@ import zhcnMessages from './messages/zh_CN.json';
 
 const messages = {
   ar: arMessages,
+  fa: faIRMessages,
   es: es419Messages, // Prospectus uses es language code for spanish, added `es` option and pointed to es-419 strings.
   'es-419': es419Messages,
   fr: frMessages,
