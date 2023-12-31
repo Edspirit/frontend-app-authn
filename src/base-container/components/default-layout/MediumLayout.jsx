@@ -5,18 +5,21 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@edx/paragon';
 import classNames from 'classnames';
 
+import DefaultLogo from '../assets/NavLogo-placeholder.svg';
+import useGetConfig from '../data/useGetConfig';
 import messages from './messages';
 
 const MediumLayout = () => {
   const { formatMessage } = useIntl();
+  const { headerLogo } = useGetConfig();
 
   return (
     <>
       <div className="w-100 medium-screen-top-stripe" />
       <div className="w-100 p-0 mb-3 d-flex">
         <div className="col-md-10 bg-primary-400">
-          <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-            <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
+          <Hyperlink destination={getConfig().HOME_PAGE}>
+            <Image alt={getConfig().SITE_NAME} className="logo" src={headerLogo || DefaultLogo} />
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
             <div className={classNames({ 'mt-1 medium-yellow-line': getConfig().SITE_NAME === 'edX' })} />
