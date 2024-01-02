@@ -17,7 +17,7 @@ const SmallLayout = () => {
     <span className="bg-primary-400 w-100">
       <div className="col-md-12 small-screen-top-stripe" />
       <div>
-        <Hyperlink destination={getConfig().HOME_PAGE}>
+        <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
           <Image className="logo-small" alt={getConfig().SITE_NAME} src={headerLogo || DefaultLogo} />
         </Hyperlink>
         <div className="d-flex align-items-center mb-3 mt-3 mr-3">
