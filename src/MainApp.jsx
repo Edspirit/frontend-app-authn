@@ -8,6 +8,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   Logistration, NotFoundPage, registerIcons, UnAuthOnlyRoute, Zendesk,
 } from './common-components';
+import REACT_QUERY_CONSTANTS from './constants/react-query-constants';
 import configureStore from './data/configureStore';
 import {
   AUTHN_PROGRESSIVE_PROFILING,
@@ -29,12 +30,7 @@ registerIcons();
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      // Set staleTime to 5 minutes
-      staleTime: 5 * 60 * 1000,
-      // Set cacheTime to 60 minutes
-      cacheTime: 60 * 60 * 1000,
-    },
+    ...REACT_QUERY_CONSTANTS,
   },
 });
 

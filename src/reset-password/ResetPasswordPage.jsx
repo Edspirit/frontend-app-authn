@@ -21,6 +21,7 @@ import { PasswordField } from '../common-components';
 import {
   LETTER_REGEX, LOGIN_PAGE, NUMBER_REGEX, RESET_PAGE,
 } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { getAllPossibleQueryParams, updatePathWithQueryParams, windowScrollTo } from '../data/utils';
 import { resetPassword, validateToken } from './data/actions';
 import {
@@ -40,6 +41,10 @@ const ResetPasswordPage = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const [errorCode, setErrorCode] = useState(null);
   const [key, setKey] = useState('');
+
+  const {
+    platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     if (props.status !== TOKEN_STATE.PENDING && props.status !== PASSWORD_RESET_ERROR) {
@@ -160,7 +165,7 @@ const ResetPasswordPage = (props) => {
         <div>
           <Helmet>
             <title>
-              {formatMessage(messages['reset.password.page.title'], { siteName: getConfig().SITE_NAME })}
+              {formatMessage(messages['reset.password.page.title'], { siteName: platformName || getConfig().SITE_NAME })}
             </title>
           </Helmet>
           <Tabs activeKey="" id="controlled-tab" onSelect={(k) => setKey(k)}>

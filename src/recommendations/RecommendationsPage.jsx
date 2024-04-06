@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import { DEFAULT_REDIRECT_URL } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { EDUCATION_LEVEL_MAPPING, RECOMMENDATIONS_COUNT } from './data/constants';
 import getPersonalizedRecommendations from './data/service';
 import { convertCourseRunKeytoCourseKey } from './data/utils';
@@ -27,6 +28,10 @@ const RecommendationsPage = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [algoliaRecommendations, setAlgoliaRecommendations] = useState([]);
   const educationLevel = EDUCATION_LEVEL_MAPPING[location.state?.educationLevel];
+
+  const {
+    platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     if (registrationResponse) {
@@ -96,7 +101,7 @@ const RecommendationsPage = (props) => {
     <>
       <Helmet>
         <title>{formatMessage(messages['recommendation.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <div className="d-flex flex-column vh-100 bg-light-200">
