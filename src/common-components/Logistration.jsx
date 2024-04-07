@@ -16,6 +16,7 @@ import { Redirect } from 'react-router-dom';
 
 import { BaseComponent } from '../base-component';
 import { LOGIN_PAGE, REGISTER_PAGE } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { getTpaHint, getTpaProvider, updatePathWithQueryParams } from '../data/utils';
 import { LoginPage } from '../login';
 import { RegistrationPage } from '../register';
@@ -38,6 +39,10 @@ const Logistration = (props) => {
   const [institutionLogin, setInstitutionLogin] = useState(false);
   const [key, setKey] = useState('');
   const disablePublicAccountCreation = getConfig().ALLOW_PUBLIC_ACCOUNT_CREATION === false;
+
+  const {
+    platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     const authService = getAuthService();
@@ -98,7 +103,11 @@ const Logistration = (props) => {
                 {!institutionLogin && (
                   <h3 className="mb-4.5">{formatMessage(messages['logistration.sign.in'])}</h3>
                 )}
-                <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
+                <LoginPage
+                  institutionLogin={institutionLogin}
+                  handleInstitutionLogin={handleInstitutionLogin}
+                  platformName={platformName}
+                />
               </div>
             </>
           )
@@ -116,12 +125,18 @@ const Logistration = (props) => {
                     <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
                   </Tabs>
                 ))}
-              { key && (
+              {key && (
                 <Redirect to={updatePathWithQueryParams(key)} />
               )}
               <div id="main-content" className="main-content">
                 {selectedPage === LOGIN_PAGE
-                  ? <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
+                  ? (
+                    <LoginPage
+                      institutionLogin={institutionLogin}
+                      handleInstitutionLogin={handleInstitutionLogin}
+                      platformName={platformName}
+                    />
+                  )
                   : (
                     <RegistrationPage
                       institutionLogin={institutionLogin}

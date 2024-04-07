@@ -20,6 +20,7 @@ import { Redirect } from 'react-router-dom';
 import { BaseComponent } from '../base-component';
 import { FormGroup } from '../common-components';
 import { DEFAULT_STATE, LOGIN_PAGE, VALID_EMAIL_REGEX } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { updatePathWithQueryParams, windowScrollTo } from '../data/utils';
 import { forgotPassword, setForgotPasswordFormData } from './data/actions';
 import { forgotPasswordResultSelector } from './data/selectors';
@@ -27,7 +28,6 @@ import ForgotPasswordAlert from './ForgotPasswordAlert';
 import messages from './messages';
 
 const ForgotPasswordPage = (props) => {
-  const platformName = getConfig().SITE_NAME;
   const emailRegex = new RegExp(VALID_EMAIL_REGEX, 'i');
   const {
     status, submitState, emailValidationError,
@@ -39,6 +39,10 @@ const ForgotPasswordPage = (props) => {
   const [formErrors, setFormErrors] = useState('');
   const [validationError, setValidationError] = useState(emailValidationError);
   const [key, setKey] = useState('');
+  const {
+    platformName: _platformName,
+  } = useGetConfig();
+  const platformName = _platformName || getConfig().SITE_NAME;
 
   useEffect(() => {
     sendPageEvent('login_and_registration', 'reset');
@@ -98,7 +102,7 @@ const ForgotPasswordPage = (props) => {
     <BaseComponent>
       <Helmet>
         <title>{formatMessage(messages['forgot.password.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName })}
         </title>
       </Helmet>
       <div>

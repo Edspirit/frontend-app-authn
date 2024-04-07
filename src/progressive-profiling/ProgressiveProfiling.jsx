@@ -27,6 +27,7 @@ import { RedirectLogistration } from '../common-components';
 import {
   DEFAULT_REDIRECT_URL, DEFAULT_STATE, FAILURE_STATE,
 } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { getAllPossibleQueryParams } from '../data/utils';
 import { FormFieldRenderer } from '../field-renderer';
 import {
@@ -53,6 +54,10 @@ const ProgressiveProfiling = (props) => {
   const [showRecommendationsPage, setShowRecommendationsPage] = useState(false);
   const authenticatedUser = getAuthenticatedUser();
   const DASHBOARD_URL = getConfig().LMS_BASE_URL.concat(DEFAULT_REDIRECT_URL);
+
+  const {
+    platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     configureAuth(AxiosJwtAuthService, { loggingService: getLoggingService(), config: getConfig() });
@@ -162,7 +167,7 @@ const ProgressiveProfiling = (props) => {
     <BaseComponent showWelcomeBanner>
       <Helmet>
         <title>{formatMessage(messages['progressive.profiling.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <ProgressiveProfilingPageModal isOpen={openDialog} redirectUrl={registrationResult.redirectUrl} />

@@ -25,6 +25,7 @@ import {
   COMPLETE_STATE,
   DEFAULT_STATE, INVALID_NAME_REGEX, LETTER_REGEX, NUMBER_REGEX, PENDING_STATE, REGISTER_PAGE, VALID_EMAIL_REGEX,
 } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import {
   getAllPossibleQueryParams, getTpaHint, getTpaProvider, setCookie, setSurveyCookie,
 } from '../data/utils';
@@ -105,7 +106,10 @@ const RegistrationPage = (props) => {
   const {
     providers, currentProvider, secondaryProviders, finishAuthUrl,
   } = thirdPartyAuthContext;
-  const platformName = getConfig().SITE_NAME;
+  const {
+    platformName: _platformName,
+  } = useGetConfig();
+  const platformName = _platformName || getConfig().SITE_NAME;
 
   /**
    * If auto submitting register form, we will check tos and honor code fields if they exist for feature parity.
@@ -518,7 +522,7 @@ const RegistrationPage = (props) => {
     return (
       <>
         <Helmet>
-          <title>{formatMessage(messages['register.page.title'], { siteName: getConfig().SITE_NAME })}</title>
+          <title>{formatMessage(messages['register.page.title'], { siteName: platformName })}</title>
         </Helmet>
         <RedirectLogistration
           success={registrationResult.success}
