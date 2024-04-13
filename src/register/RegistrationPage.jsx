@@ -109,7 +109,6 @@ const RegistrationPage = (props) => {
   const {
     platformName: _platformName,
   } = useGetConfig();
-  const platformName = _platformName || getConfig().SITE_NAME;
 
   /**
    * If auto submitting register form, we will check tos and honor code fields if they exist for feature parity.
@@ -522,7 +521,7 @@ const RegistrationPage = (props) => {
     return (
       <>
         <Helmet>
-          <title>{formatMessage(messages['register.page.title'], { siteName: platformName })}</title>
+          <title>{formatMessage(messages['register.page.title'], { siteName: _platformName || getConfig().SITE_NAME })}</title>
         </Helmet>
         <RedirectLogistration
           success={registrationResult.success}
@@ -541,7 +540,7 @@ const RegistrationPage = (props) => {
           <div className="mw-xs mt-3">
             <ThirdPartyAuthAlert
               currentProvider={currentProvider}
-              platformName={platformName}
+              platformName={_platformName || getConfig().SITE_NAME}
               referrer={REGISTER_PAGE}
             />
             <RegistrationFailure

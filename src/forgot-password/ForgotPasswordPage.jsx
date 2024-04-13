@@ -42,7 +42,6 @@ const ForgotPasswordPage = (props) => {
   const {
     platformName: _platformName,
   } = useGetConfig();
-  const platformName = _platformName || getConfig().SITE_NAME;
 
   useEffect(() => {
     sendPageEvent('login_and_registration', 'reset');
@@ -102,7 +101,7 @@ const ForgotPasswordPage = (props) => {
     <BaseComponent>
       <Helmet>
         <title>{formatMessage(messages['forgot.password.page.title'],
-          { siteName: platformName })}
+          { siteName: _platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <div>
@@ -130,7 +129,7 @@ const ForgotPasswordPage = (props) => {
               handleChange={(e) => setEmail(e.target.value)}
               handleBlur={handleBlur}
               handleFocus={handleFocus}
-              helpText={[formatMessage(messages['forgot.password.email.help.text'], { platformName })]}
+              helpText={[formatMessage(messages['forgot.password.email.help.text'], { platformName: _platformName || getConfig().SITE_NAME })]}
             />
             <StatefulButton
               id="submit-forget-password"
@@ -159,7 +158,7 @@ const ForgotPasswordPage = (props) => {
               </Hyperlink>
             )}
             <p className="mt-5.5 small text-gray-700">
-              {formatMessage(messages['additional.help.text'], { platformName })}
+              {formatMessage(messages['additional.help.text'], { platformName: _platformName || getConfig().SITE_NAME })}
               <span>
                 <Hyperlink isInline destination={`mailto:${getConfig().INFO_EMAIL}`}>{getConfig().INFO_EMAIL}</Hyperlink>
               </span>

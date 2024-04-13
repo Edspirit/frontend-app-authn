@@ -245,7 +245,7 @@ class LoginPage extends React.Component {
       <>
         <Helmet>
           <title>{intl.formatMessage(messages['login.page.title'],
-            { siteName: this.props.platformName || getConfig().SITE_NAME })}
+            { siteName: this.props.platformName })}
           </title>
         </Helmet>
         <RedirectLogistration
