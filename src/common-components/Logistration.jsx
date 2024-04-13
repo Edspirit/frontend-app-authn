@@ -106,7 +106,7 @@ const Logistration = (props) => {
                 <LoginPage
                   institutionLogin={institutionLogin}
                   handleInstitutionLogin={handleInstitutionLogin}
-                  platformName={platformName}
+                  platformName={platformName || getConfig().SITE_NAME}
                 />
               </div>
             </>
@@ -134,7 +134,7 @@ const Logistration = (props) => {
                     <LoginPage
                       institutionLogin={institutionLogin}
                       handleInstitutionLogin={handleInstitutionLogin}
-                      platformName={platformName}
+                      platformName={platformName || getConfig().SITE_NAME}
                     />
                   )
                   : (
