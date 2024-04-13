@@ -24,10 +24,10 @@ import messages from './messages';
 import BaseContainer from '../base-container';
 import { FormGroup } from '../common-components';
 import { DEFAULT_STATE, LOGIN_PAGE, VALID_EMAIL_REGEX } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { updatePathWithQueryParams, windowScrollTo } from '../data/utils';
 
 const ForgotPasswordPage = (props) => {
-  const platformName = getConfig().SITE_NAME;
   const emailRegex = new RegExp(VALID_EMAIL_REGEX, 'i');
   const {
     status, submitState, emailValidationError,
@@ -39,6 +39,9 @@ const ForgotPasswordPage = (props) => {
   const [formErrors, setFormErrors] = useState('');
   const [validationError, setValidationError] = useState(emailValidationError);
   const navigate = useNavigate();
+  const {
+    platformName: _platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     sendPageEvent('login_and_registration', 'reset');
@@ -98,7 +101,7 @@ const ForgotPasswordPage = (props) => {
     <BaseContainer>
       <Helmet>
         <title>{formatMessage(messages['forgot.password.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: _platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <div>
@@ -123,7 +126,7 @@ const ForgotPasswordPage = (props) => {
               handleChange={(e) => setEmail(e.target.value)}
               handleBlur={handleBlur}
               handleFocus={handleFocus}
-              helpText={[formatMessage(messages['forgot.password.email.help.text'], { platformName })]}
+              helpText={[formatMessage(messages['forgot.password.email.help.text'], { platformName: _platformName || getConfig().SITE_NAME })]}
             />
             <StatefulButton
               id="submit-forget-password"
@@ -152,7 +155,7 @@ const ForgotPasswordPage = (props) => {
               </Hyperlink>
             )}
             <p className="mt-5.5 small text-gray-700">
-              {formatMessage(messages['additional.help.text'], { platformName })}
+              {formatMessage(messages['additional.help.text'], { platformName: _platformName || getConfig().SITE_NAME })}
               <span>
                 <Hyperlink isInline destination={`mailto:${getConfig().INFO_EMAIL}`}>{getConfig().INFO_EMAIL}</Hyperlink>
               </span>

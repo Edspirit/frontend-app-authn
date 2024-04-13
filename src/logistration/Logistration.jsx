@@ -22,6 +22,7 @@ import {
 import messages from '../common-components/messages';
 import useSetFont from '../common-components/useSetFonts';
 import { LOGIN_PAGE, REGISTER_PAGE } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import {
   getTpaHint, getTpaProvider, updatePathWithQueryParams,
 } from '../data/utils';
@@ -41,6 +42,9 @@ const Logistration = (props) => {
   const [key, setKey] = useState('');
   const navigate = useNavigate();
   const disablePublicAccountCreation = getConfig().ALLOW_PUBLIC_ACCOUNT_CREATION === false;
+  const {
+    platformName,
+  } = useGetConfig();
 
   useEffect(() => {
     const authService = getAuthService();
@@ -106,7 +110,11 @@ const Logistration = (props) => {
                 {!institutionLogin && (
                   <h3 className="mb-4.5">{formatMessage(messages['logistration.sign.in'])}</h3>
                 )}
-                <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
+                <LoginPage
+                  institutionLogin={institutionLogin}
+                  handleInstitutionLogin={handleInstitutionLogin}
+                  platformName={platformName || getConfig().SITE_NAME}
+                />
               </div>
             </>
           )
@@ -129,7 +137,13 @@ const Logistration = (props) => {
               )}
               <div id="main-content" className="main-content">
                 {selectedPage === LOGIN_PAGE
-                  ? <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
+                  ? (
+                    <LoginPage
+                      institutionLogin={institutionLogin}
+                      handleInstitutionLogin={handleInstitutionLogin}
+                      platformName={platformName || getConfig().SITE_NAME}
+                    />
+                  )
                   : (
                     <RegistrationPage
                       institutionLogin={institutionLogin}

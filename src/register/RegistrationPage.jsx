@@ -37,6 +37,7 @@ import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import {
   COMPLETE_STATE, PENDING_STATE, REGISTER_PAGE,
 } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import {
   getAllPossibleQueryParams, getTpaHint, getTpaProvider, isHostAvailableInQueryParams, setCookie,
 } from '../data/utils';
@@ -49,7 +50,9 @@ const RegistrationPage = (props) => {
   const dispatch = useDispatch();
 
   const registrationEmbedded = isHostAvailableInQueryParams();
-  const platformName = getConfig().SITE_NAME;
+  const {
+    platformName: _platformName,
+  } = useGetConfig();
   const flags = {
     showConfigurableEdxFields: getConfig().SHOW_CONFIGURABLE_EDX_FIELDS,
     showConfigurableRegistrationFields: getConfig().ENABLE_DYNAMIC_REGISTRATION_FIELDS,
@@ -102,7 +105,6 @@ const RegistrationPage = (props) => {
   const [formStartTime, setFormStartTime] = useState(null);
   // temporary error state for embedded experience because we don't want to show errors on blur
   const [temporaryErrors, setTemporaryErrors] = useState({ ...backedUpFormData.errors });
-
   const { cta, host } = queryParams;
   const buttonLabel = cta
     ? formatMessage(messages['create.account.cta.button'], { label: cta })
@@ -272,7 +274,7 @@ const RegistrationPage = (props) => {
     return (
       <>
         <Helmet>
-          <title>{formatMessage(messages['register.page.title'], { siteName: getConfig().SITE_NAME })}</title>
+          <title>{formatMessage(messages['register.page.title'], { siteName: _platformName || getConfig().SITE_NAME })}</title>
         </Helmet>
         <RedirectLogistration
           host={host}
@@ -299,7 +301,7 @@ const RegistrationPage = (props) => {
           >
             <ThirdPartyAuthAlert
               currentProvider={currentProvider}
-              platformName={platformName}
+              platformName={_platformName || getConfig().SITE_NAME}
               referrer={REGISTER_PAGE}
             />
             <RegistrationFailure

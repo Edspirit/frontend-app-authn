@@ -234,7 +234,7 @@ class LoginPage extends React.Component {
       <>
         <Helmet>
           <title>{intl.formatMessage(messages['login.page.title'],
-            { siteName: getConfig().SITE_NAME })}
+            { siteName: this.props.platformName })}
           </title>
         </Helmet>
         <RedirectLogistration
@@ -362,6 +362,7 @@ LoginPage.defaultProps = {
     providers: [],
     secondaryProviders: [],
   },
+  platformName: '',
 };
 
 LoginPage.propTypes = {
@@ -400,6 +401,7 @@ LoginPage.propTypes = {
   }),
   institutionLogin: PropTypes.bool.isRequired,
   handleInstitutionLogin: PropTypes.func.isRequired,
+  platformName: PropTypes.string,
 };
 
 const mapStateToProps = state => {
