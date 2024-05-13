@@ -2,7 +2,6 @@ import React from 'react';
 
 import { getConfig } from '@edx/frontend-platform';
 import { AppProvider } from '@edx/frontend-platform/react';
-import { Helmet } from 'react-helmet';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route } from 'react-router-dom';
@@ -47,9 +46,6 @@ const queryClient = new QueryClient({
 const MainApp = () => (
   <AppProvider store={configureStore()}>
     <QueryClientProvider client={queryClient}>
-    <Helmet>
-      <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-    </Helmet>
     {getConfig().ZENDESK_KEY && <Zendesk />}
     <Routes>
       <Route path="/" element={<Navigate replace to={updatePathWithQueryParams(REGISTER_PAGE)} />} />
