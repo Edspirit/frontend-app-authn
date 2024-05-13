@@ -2,9 +2,8 @@ import React from 'react';
 
 import { getConfig } from '@edx/frontend-platform';
 import { AppProvider } from '@edx/frontend-platform/react';
-import { Navigate, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Route } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
   EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute, Zendesk,
@@ -46,27 +45,27 @@ const queryClient = new QueryClient({
 const MainApp = () => (
   <AppProvider store={configureStore()}>
     <QueryClientProvider client={queryClient}>
-    {getConfig().ZENDESK_KEY && <Zendesk />}
-    <Routes>
-      <Route path="/" element={<Navigate replace to={updatePathWithQueryParams(REGISTER_PAGE)} />} />
-      <Route
-        path={REGISTER_EMBEDDED_PAGE}
-        element={<EmbeddedRegistrationRoute><RegistrationPage /></EmbeddedRegistrationRoute>}
-      />
-      <Route
-        path={LOGIN_PAGE}
-        element={
-          <UnAuthOnlyRoute><Logistration selectedPage={LOGIN_PAGE} /></UnAuthOnlyRoute>
-        }
-      />
-      <Route path={REGISTER_PAGE} element={<UnAuthOnlyRoute><Logistration /></UnAuthOnlyRoute>} />
-      <Route path={RESET_PAGE} element={<UnAuthOnlyRoute><ForgotPasswordPage /></UnAuthOnlyRoute>} />
-      <Route path={PASSWORD_RESET_CONFIRM} element={<ResetPasswordPage />} />
-      <Route path={AUTHN_PROGRESSIVE_PROFILING} element={<ProgressiveProfiling />} />
-      <Route path={RECOMMENDATIONS} element={<RecommendationsPage />} />
-      <Route path={PAGE_NOT_FOUND} element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate replace to={PAGE_NOT_FOUND} />} />
-    </Routes>
+      {getConfig().ZENDESK_KEY && <Zendesk />}
+      <Routes>
+        <Route path="/" element={<Navigate replace to={updatePathWithQueryParams(REGISTER_PAGE)} />} />
+        <Route
+          path={REGISTER_EMBEDDED_PAGE}
+          element={<EmbeddedRegistrationRoute><RegistrationPage /></EmbeddedRegistrationRoute>}
+        />
+        <Route
+          path={LOGIN_PAGE}
+          element={
+            <UnAuthOnlyRoute><Logistration selectedPage={LOGIN_PAGE} /></UnAuthOnlyRoute>
+          }
+        />
+        <Route path={REGISTER_PAGE} element={<UnAuthOnlyRoute><Logistration /></UnAuthOnlyRoute>} />
+        <Route path={RESET_PAGE} element={<UnAuthOnlyRoute><ForgotPasswordPage /></UnAuthOnlyRoute>} />
+        <Route path={PASSWORD_RESET_CONFIRM} element={<ResetPasswordPage />} />
+        <Route path={AUTHN_PROGRESSIVE_PROFILING} element={<ProgressiveProfiling />} />
+        <Route path={RECOMMENDATIONS} element={<RecommendationsPage />} />
+        <Route path={PAGE_NOT_FOUND} element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate replace to={PAGE_NOT_FOUND} />} />
+      </Routes>
     </QueryClientProvider>
   </AppProvider>
 );
