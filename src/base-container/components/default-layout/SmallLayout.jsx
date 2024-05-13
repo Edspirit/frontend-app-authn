@@ -5,9 +5,9 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@edx/paragon';
 import classNames from 'classnames';
 
-import DefaultLogo from '../assets/NavLogo-placeholder.svg';
-import useGetConfig from '../data/useGetConfig';
 import messages from './messages';
+import DefaultLogo from '../../../assets/NavLogo-placeholder.svg';
+import useGetConfig from '../../../data/useGetConfig';
 
 const SmallLayout = () => {
   const { formatMessage } = useIntl();

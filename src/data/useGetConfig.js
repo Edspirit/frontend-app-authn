@@ -1,7 +1,7 @@
 import { getConfig } from '@edx/frontend-platform';
 import { useQuery } from 'react-query';
 
-import faviconPlaceholder from '../assets/place-holders/favicon.svg';
+import faviconPlaceholder from '../assets/favicon.svg';
 
 const useGetConfig = () => {
   const fetchConfig = async ({ baseURL, instanceConfigAPIUrl }) => {
