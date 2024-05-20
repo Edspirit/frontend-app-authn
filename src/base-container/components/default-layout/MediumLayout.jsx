@@ -6,9 +6,12 @@ import { Hyperlink, Image } from '@edx/paragon';
 import classNames from 'classnames';
 
 import messages from './messages';
+import DefaultLogo from '../../../assets/NavLogo-placeholder.svg';
+import useGetConfig from '../../../data/useGetConfig';
 
 const MediumLayout = () => {
   const { formatMessage } = useIntl();
+  const { headerLogo } = useGetConfig();
 
   return (
     <>
@@ -16,7 +19,7 @@ const MediumLayout = () => {
       <div className="w-100 p-0 mb-3 d-flex">
         <div className="col-md-10 bg-primary-400">
           <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-            <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
+            <Image alt={getConfig().SITE_NAME} className="logo" src={headerLogo || DefaultLogo} />
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
             <div className={classNames({ 'mt-1 medium-yellow-line': getConfig().SITE_NAME === 'edX' })} />
