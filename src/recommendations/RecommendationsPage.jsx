@@ -21,9 +21,11 @@ import RecommendationsLargeLayout from './RecommendationsPageLayouts/LargeLayout
 import RecommendationsSmallLayout from './RecommendationsPageLayouts/SmallLayout';
 import { LINK_TIMEOUT, trackRecommendationsViewed, trackSkipButtonClicked } from './track';
 import { DEFAULT_REDIRECT_URL } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 
 const RecommendationsPage = () => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const isExtraSmall = useMediaQuery({ maxWidth: breakpoints.extraSmall.maxWidth - 1 });
   const location = useLocation();
 
@@ -72,7 +74,7 @@ const RecommendationsPage = () => {
     <>
       <Helmet>
         <title>{formatMessage(messages['recommendation.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <div className="d-flex flex-column bg-light-200 min-vh-100">

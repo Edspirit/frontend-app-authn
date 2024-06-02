@@ -11,7 +11,7 @@ import useGetConfig from '../../../data/useGetConfig';
 
 const MediumLayout = () => {
   const { formatMessage } = useIntl();
-  const { headerLogo } = useGetConfig();
+  const { headerLogo, platformName } = useGetConfig();
 
   return (
     <>
@@ -33,7 +33,7 @@ const MediumLayout = () => {
                 <span>
                   {formatMessage(messages['start.learning'])}{' '}
                   <span className="text-accent-a d-inline-block">
-                    {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
+                    {formatMessage(messages['with.site.name'], { siteName: platformName || getConfig().SITE_NAME })}
                   </span>
                 </span>
               </h1>

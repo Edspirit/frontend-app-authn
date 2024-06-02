@@ -29,11 +29,13 @@ import { PasswordField } from '../common-components';
 import {
   LETTER_REGEX, LOGIN_PAGE, NUMBER_REGEX, RESET_PAGE,
 } from '../data/constants';
+import useGetConfig from '../data/useGetConfig';
 import { getAllPossibleQueryParams, updatePathWithQueryParams, windowScrollTo } from '../data/utils';
 
 const ResetPasswordPage = (props) => {
   const { formatMessage } = useIntl();
   const newPasswordError = formatMessage(messages['password.validation.message']);
+  const { platformName } = useGetConfig();
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -147,7 +149,7 @@ const ResetPasswordPage = (props) => {
         <div>
           <Helmet>
             <title>
-              {formatMessage(messages['reset.password.page.title'], { siteName: getConfig().SITE_NAME })}
+              {formatMessage(messages['reset.password.page.title'], { siteName: platformName || getConfig().SITE_NAME })}
             </title>
           </Helmet>
           <Tabs activeKey="" id="controlled-tab" onSelect={(key) => navigate(updatePathWithQueryParams(key))}>

@@ -36,11 +36,13 @@ import {
   PENDING_STATE,
 } from '../data/constants';
 import isOneTrustFunctionalCookieEnabled from '../data/oneTrust';
+import useGetConfig from '../data/useGetConfig';
 import { getAllPossibleQueryParams, isHostAvailableInQueryParams } from '../data/utils';
 import { FormFieldRenderer } from '../field-renderer';
 
 const ProgressiveProfiling = (props) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const {
     getFieldDataFromBackend,
     submitState,
@@ -197,7 +199,7 @@ const ProgressiveProfiling = (props) => {
     <BaseContainer showWelcomeBanner username={authenticatedUser?.username}>
       <Helmet>
         <title>{formatMessage(messages['progressive.profiling.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName || getConfig().SITE_NAME })}
         </title>
       </Helmet>
       <ProgressiveProfilingPageModal isOpen={showModal} redirectUrl={registrationResult.redirectUrl} />

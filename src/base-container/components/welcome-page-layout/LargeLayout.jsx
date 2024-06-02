@@ -6,9 +6,11 @@ import { Hyperlink, Image } from '@edx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
+import useGetConfig from '../../../data/useGetConfig';
 
 const LargeLayout = ({ username }) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
 
   return (
     <div className="w-50 d-flex">
@@ -20,7 +22,7 @@ const LargeLayout = ({ username }) => {
           <div className="large-screen-left-container mr-n4.5 large-yellow-line mt-5" />
           <div>
             <h1 className="welcome-to-platform data-hj-suppress">
-              {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, username })}
+              {formatMessage(messages['welcome.to.platform'], { siteName: platformName || getConfig().SITE_NAME, username })}
             </h1>
             <h2 className="complete-your-profile">
               {formatMessage(messages['complete.your.profile.1'])}

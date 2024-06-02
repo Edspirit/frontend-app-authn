@@ -6,9 +6,11 @@ import { Hyperlink, Image } from '@edx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
+import useGetConfig from '../../../data/useGetConfig';
 
 const MediumLayout = ({ username }) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
 
   return (
     <>
@@ -22,7 +24,7 @@ const MediumLayout = ({ username }) => {
             <div className="medium-yellow-line mt-5 mr-n2" />
             <div>
               <h1 className="h3 data-hj-suppress mw-320">
-                {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, username })}
+                {formatMessage(messages['welcome.to.platform'], { siteName: platformName || getConfig().SITE_NAME, username })}
               </h1>
               <h2 className="display-1">
                 {formatMessage(messages['complete.your.profile.1'])}

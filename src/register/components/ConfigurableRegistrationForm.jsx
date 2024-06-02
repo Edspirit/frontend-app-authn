@@ -4,6 +4,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { getCountryList, getLocale, useIntl } from '@edx/frontend-platform/i18n';
 import PropTypes from 'prop-types';
 
+import useGetConfig from '../../data/useGetConfig';
 import { FormFieldRenderer } from '../../field-renderer';
 import { FIELDS } from '../data/constants';
 import messages from '../messages';
@@ -34,6 +35,7 @@ const ConfigurableRegistrationForm = (props) => {
   } = props;
 
   const countryList = useMemo(() => getCountryList(getLocale()), []);
+  const { platformName } = useGetConfig();
 
   let showTermsOfServiceAndHonorCode = false;
   let showCountryField = false;
@@ -185,7 +187,7 @@ const ConfigurableRegistrationForm = (props) => {
         <FormFieldRenderer
           fieldData={{
             type: 'checkbox',
-            label: formatMessage(messages['registration.opt.in.label'], { siteName: getConfig().SITE_NAME }),
+            label: formatMessage(messages['registration.opt.in.label'], { siteName: platformName || getConfig().SITE_NAME }),
             name: 'marketingEmailsOptIn',
           }}
           value={formFields.marketingEmailsOptIn}

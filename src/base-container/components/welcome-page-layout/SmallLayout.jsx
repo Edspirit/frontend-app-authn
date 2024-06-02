@@ -6,9 +6,11 @@ import { Hyperlink, Image } from '@edx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
+import useGetConfig from '../../../data/useGetConfig';
 
 const SmallLayout = ({ username }) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
 
   return (
     <div className="min-vw-100 bg-light-200">
@@ -20,7 +22,7 @@ const SmallLayout = ({ username }) => {
         <div className="small-yellow-line mt-4.5" />
         <div>
           <h1 className="h5 data-hj-suppress">
-            {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, username })}
+            {formatMessage(messages['welcome.to.platform'], { siteName: platformName || getConfig().SITE_NAME, username })}
           </h1>
           <h2 className="h1">
             {formatMessage(messages['complete.your.profile.1'])}
