@@ -4,3 +4,14 @@
 @import "~@edx/brand/paragon/overrides";
 
 @import "sass/style";
+
+.lang_fa {
+  * {
+    font-family: IRANSans, FontAwesome, sans-serif !important ;
+  }
+}
+.lang_ar {
+  * {
+    font-family: NotoSansArabic, FontAwesome, sans-serif !important ;
+  }
+}
