@@ -6,7 +6,7 @@ import { Button, Icon, IconButton } from '@edx/paragon';
 import { Close } from '@edx/paragon/icons';
 import PropTypes from 'prop-types';
 
-import validateUsername from './validator';
+import validateUsername, { usernameRegex } from './validator';
 import { FormGroup } from '../../../common-components';
 import {
   clearRegistrationBackendError,
@@ -99,27 +99,33 @@ const UsernameField = (props) => {
     dispatch(clearUsernameSuggestions());
   };
 
-  const suggestedUsernames = () => (
-    <div className={className}>
-      <span className="text-gray username-suggestion--label">{formatMessage(messages['registration.username.suggestion.label'])}</span>
-      <div className="username-scroll-suggested--form-field">
-        {usernameSuggestions.map((username, index) => (
-          <Button
-            type="button"
-            name="username"
-            variant="outline-dark"
-            className="username-suggestions--chip data-hj-suppress"
-            autoComplete={props.autoComplete}
-            key={`suggestion-${index.toString()}`}
-            onClick={(e) => handleSuggestionClick(e, username)}
-          >
-            {username}
-          </Button>
-        ))}
+  const suggestedUsernames = () => {
+    const validSuggestions = usernameSuggestions.filter(username => usernameRegex.test(username),
+    );
+    return (
+      <div className={className}>
+        <span className="text-gray username-suggestion--label">
+          {formatMessage(messages['registration.username.suggestion.label'])}
+        </span>
+        <div className="username-scroll-suggested--form-field">
+          {validSuggestions.map((username, index) => (
+            <Button
+              type="button"
+              name="username"
+              variant="outline-dark"
+              className="username-suggestions--chip data-hj-suppress"
+              autoComplete={props.autoComplete}
+              key={`suggestion-${index.toString()}`}
+              onClick={(e) => handleSuggestionClick(e, username)}
+            >
+              {username}
+            </Button>
+          ))}
+        </div>
+        {iconButton}
       </div>
-      {iconButton}
-    </div>
-  );
+    );
+  };
 
   if (usernameSuggestions.length > 0 && errorMessage && value === ' ') {
     className = 'username-suggestions__error';
