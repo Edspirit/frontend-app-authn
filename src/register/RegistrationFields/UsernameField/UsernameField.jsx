@@ -100,8 +100,14 @@ const UsernameField = (props) => {
   };
 
   const suggestedUsernames = () => {
-    const validSuggestions = usernameSuggestions.filter(username => usernameRegex.test(username),
+    const validSuggestions = usernameSuggestions.filter(username => usernameRegex.test(username) && username.trim() !== '', // Filter valid and non-empty suggestions
     );
+
+    // Only render the suggestions if there are valid ones
+    if (validSuggestions.length === 0) {
+      return null; // Return null if no valid suggestions
+    }
+
     return (
       <div className={className}>
         <span className="text-gray username-suggestion--label">
