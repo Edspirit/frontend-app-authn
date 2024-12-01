@@ -6,15 +6,17 @@ import { Hyperlink, Image } from '@openedx/paragon';
 import classNames from 'classnames';
 
 import messages from './messages';
+import DefaultLogo from '../../../assets/NavLogo-placeholder.svg';
+import useGetConfig from '../../../common-components/useGetConfig';
 
 const LargeLayout = () => {
   const { formatMessage } = useIntl();
-
+  const { headerLogo, platformName } = useGetConfig();
   return (
     <div className="w-50 d-flex">
       <div className="col-md-9 bg-primary-400">
         <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-          <Image className="logo position-absolute" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
+          <Image className="logo position-absolute" alt={getConfig().SITE_NAME} src={headerLogo || DefaultLogo} />
         </Hyperlink>
         <div className="min-vh-100 d-flex align-items-center">
           <div className={classNames({ 'large-yellow-line mr-n4.5': getConfig().SITE_NAME === 'edX' })} />
@@ -26,7 +28,7 @@ const LargeLayout = () => {
           >
             {formatMessage(messages['start.learning'])}
             <div className="text-accent-a">
-              {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
+              {formatMessage(messages['with.site.name'], { siteName: platformName })}
             </div>
           </h1>
         </div>

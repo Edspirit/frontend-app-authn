@@ -40,6 +40,7 @@ import {
 import { getThirdPartyAuthContext as getRegistrationDataFromBackend } from '../common-components/data/actions';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import ThirdPartyAuth from '../common-components/ThirdPartyAuth';
+import useGetConfig from '../common-components/useGetConfig';
 import {
   COMPLETE_STATE, PENDING_STATE, REGISTER_PAGE,
 } from '../data/constants';
@@ -55,7 +56,7 @@ const RegistrationPage = (props) => {
   const dispatch = useDispatch();
 
   const registrationEmbedded = isHostAvailableInQueryParams();
-  const platformName = getConfig().SITE_NAME;
+  const { platformName } = useGetConfig();
   const flags = {
     showConfigurableEdxFields: getConfig().SHOW_CONFIGURABLE_EDX_FIELDS,
     showConfigurableRegistrationFields: getConfig().ENABLE_DYNAMIC_REGISTRATION_FIELDS,

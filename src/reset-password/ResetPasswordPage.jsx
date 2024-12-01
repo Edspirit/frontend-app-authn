@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import {
   Form,
@@ -26,6 +25,7 @@ import messages from './messages';
 import ResetPasswordFailure from './ResetPasswordFailure';
 import BaseContainer from '../base-container';
 import { PasswordField } from '../common-components';
+import useGetConfig from '../common-components/useGetConfig';
 import {
   LETTER_REGEX, LOGIN_PAGE, NUMBER_REGEX, RESET_PAGE,
 } from '../data/constants';
@@ -33,6 +33,7 @@ import { getAllPossibleQueryParams, updatePathWithQueryParams, windowScrollTo } 
 
 const ResetPasswordPage = (props) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const newPasswordError = formatMessage(messages['password.validation.message']);
 
   const [newPassword, setNewPassword] = useState('');
@@ -147,7 +148,7 @@ const ResetPasswordPage = (props) => {
         <div>
           <Helmet>
             <title>
-              {formatMessage(messages['reset.password.page.title'], { siteName: getConfig().SITE_NAME })}
+              {formatMessage(messages['reset.password.page.title'], { siteName: platformName })}
             </title>
           </Helmet>
           <Tabs activeKey="" id="controlled-tab" onSelect={(key) => navigate(updatePathWithQueryParams(key))}>

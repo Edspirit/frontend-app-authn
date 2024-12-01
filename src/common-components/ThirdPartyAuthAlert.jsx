@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Alert } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
+import useGetConfig from './useGetConfig';
 import { LOGIN_PAGE, REGISTER_PAGE } from '../data/constants';
 
 const ThirdPartyAuthAlert = (props) => {
   const { formatMessage } = useIntl();
   const { currentProvider, referrer } = props;
-  const platformName = getConfig().SITE_NAME;
+  const { platformName } = useGetConfig();
   let message;
 
   if (referrer === LOGIN_PAGE) {
