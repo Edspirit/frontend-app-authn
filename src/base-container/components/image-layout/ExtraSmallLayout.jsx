@@ -5,17 +5,19 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@openedx/paragon';
 
 import messages from './messages';
+import DefaultLogo from '../../../assets/NavLogo-placeholder.svg';
+import useGetConfig from '../../../common-components/useGetConfig';
 
 const ExtraSmallLayout = () => {
   const { formatMessage } = useIntl();
-
+  const { headerLogo } = useGetConfig();
   return (
     <span
       className="w-100 bg-primary-500 banner__image extra-small-layout"
       style={{ backgroundImage: `url(${getConfig().BANNER_IMAGE_EXTRA_SMALL})` }}
     >
       <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-        <Image className="company-logo" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
+        <Image className="company-logo" alt={getConfig().SITE_NAME} src={headerLogo || DefaultLogo} />
       </Hyperlink>
       <div className="ml-4.5 mr-1 pb-3.5 pt-3.5">
         <h1 className="banner__heading">

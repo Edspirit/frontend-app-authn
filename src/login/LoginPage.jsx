@@ -32,6 +32,7 @@ import { getThirdPartyAuthContext } from '../common-components/data/actions';
 import { thirdPartyAuthContextSelector } from '../common-components/data/selectors';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import ThirdPartyAuth from '../common-components/ThirdPartyAuth';
+import useGetConfig from '../common-components/useGetConfig';
 import {
   DEFAULT_STATE, PENDING_STATE, RESET_PAGE,
 } from '../data/constants';
@@ -56,7 +57,6 @@ const LoginPage = (props) => {
       currentProvider,
       secondaryProviders,
       finishAuthUrl,
-      platformName,
       errorMessage: thirdPartyErrorMessage,
     },
     thirdPartyAuthApiStatus,
@@ -69,6 +69,7 @@ const LoginPage = (props) => {
     getTPADataFromBackend,
   } = props;
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const activationMsgType = getActivationStatus();
   const queryParams = useMemo(() => getAllPossibleQueryParams(), []);
 
@@ -202,7 +203,7 @@ const LoginPage = (props) => {
   return (
     <>
       <Helmet>
-        <title>{formatMessage(messages['login.page.title'], { siteName: getConfig().SITE_NAME })}</title>
+        <title>{formatMessage(messages['login.page.title'], { siteName: platformName })}</title>
       </Helmet>
       <RedirectLogistration
         success={loginResult.success}

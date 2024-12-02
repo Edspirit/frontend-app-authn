@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { ActionRow, Button, ModalDialog } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
+import useGetConfig from '../common-components/useGetConfig';
 
 const ProgressiveProfilingPageModal = (props) => {
   const { formatMessage } = useIntl();
   const { isOpen, redirectUrl } = props;
-  const platformName = getConfig().SITE_NAME;
+  const { platformName } = useGetConfig();
 
   const handleSubmit = (e) => {
     e.preventDefault();

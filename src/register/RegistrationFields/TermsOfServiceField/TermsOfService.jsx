@@ -5,10 +5,12 @@ import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
 import { Form, Hyperlink } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
+import useGetConfig from '../../../common-components/useGetConfig';
 import messages from '../../messages';
 
 const TermsOfService = (props) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const {
     errorMessage, onChangeHandler, value,
   } = props;
@@ -29,7 +31,7 @@ const TermsOfService = (props) => {
           description="Text that appears on registration form stating terms of service.
                        It is a legal document that users must agree to."
           values={{
-            platformName: getConfig().SITE_NAME,
+            platformName,
             termsOfService: (
               <Hyperlink variant="muted" destination={getConfig().TOS_LINK || '#'} target="_blank">
                 {formatMessage(messages['terms.of.service'])}

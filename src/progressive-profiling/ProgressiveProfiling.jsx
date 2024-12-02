@@ -29,6 +29,7 @@ import ProgressiveProfilingPageModal from './ProgressiveProfilingPageModal';
 import BaseContainer from '../base-container';
 import { RedirectLogistration } from '../common-components';
 import { getThirdPartyAuthContext } from '../common-components/data/actions';
+import useGetConfig from '../common-components/useGetConfig';
 import {
   COMPLETE_STATE,
   DEFAULT_REDIRECT_URL,
@@ -42,6 +43,7 @@ import { FormFieldRenderer } from '../field-renderer';
 
 const ProgressiveProfiling = (props) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const {
     getFieldDataFromBackend,
     submitState,
@@ -198,8 +200,8 @@ const ProgressiveProfiling = (props) => {
   return (
     <BaseContainer showWelcomeBanner fullName={authenticatedUser?.fullName || authenticatedUser?.name}>
       <Helmet>
-        <title>{formatMessage(messages['progressive.profiling.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+        <title>
+          {formatMessage(messages['progressive.profiling.page.title'], { siteName: platformName })}
         </title>
       </Helmet>
       <ProgressiveProfilingPageModal isOpen={showModal} redirectUrl={registrationResult.redirectUrl} />

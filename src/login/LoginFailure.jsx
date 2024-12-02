@@ -23,11 +23,13 @@ import {
   TPA_AUTHENTICATION_FAILURE,
 } from './data/constants';
 import messages from './messages';
+import useGetConfig from '../common-components/useGetConfig';
 import { windowScrollTo } from '../data/utils';
 
 const LoginFailureMessage = (props) => {
   const { formatMessage } = useIntl();
   const authService = getAuthService();
+  const { platformName } = useGetConfig();
   const {
     context,
     errorCode,
@@ -184,7 +186,7 @@ const LoginFailureMessage = (props) => {
       errorMessage = (
         <p>
           {formatMessage(messages['login.tpa.authentication.failure'], {
-            platform_name: getConfig().SITE_NAME,
+            platform_name: platformName,
             lineBreak: <br />,
             errorMessage: context.errorMessage,
           })}

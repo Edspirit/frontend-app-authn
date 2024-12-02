@@ -23,11 +23,12 @@ import ForgotPasswordAlert from './ForgotPasswordAlert';
 import messages from './messages';
 import BaseContainer from '../base-container';
 import { FormGroup } from '../common-components';
+import useGetConfig from '../common-components/useGetConfig';
 import { DEFAULT_STATE, LOGIN_PAGE, VALID_EMAIL_REGEX } from '../data/constants';
 import { updatePathWithQueryParams, windowScrollTo } from '../data/utils';
 
 const ForgotPasswordPage = (props) => {
-  const platformName = getConfig().SITE_NAME;
+  const { platformName } = useGetConfig();
   const emailRegex = new RegExp(VALID_EMAIL_REGEX, 'i');
   const {
     status, submitState, emailValidationError,
@@ -98,7 +99,7 @@ const ForgotPasswordPage = (props) => {
     <BaseContainer>
       <Helmet>
         <title>{formatMessage(messages['forgot.password.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+          { siteName: platformName })}
         </title>
       </Helmet>
       <div>

@@ -5,10 +5,12 @@ import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
 import { Form, Hyperlink } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
+import useGetConfig from '../../../common-components/useGetConfig';
 import messages from '../../messages';
 
 const HonorCode = (props) => {
   const { formatMessage } = useIntl();
+  const { platformName } = useGetConfig();
   const {
     errorMessage, onChangeHandler, fieldType, value,
   } = props;
@@ -28,7 +30,7 @@ const HonorCode = (props) => {
                 Member process your personal data in accordance with the {privacyPolicy}."
           description="Text that appears on registration form stating honor code and privacy policy"
           values={{
-            platformName: getConfig().SITE_NAME,
+            platformName,
             tosAndHonorCode: (
               <Hyperlink
                 className="inline-link"
