@@ -37,6 +37,20 @@ pull_translations:
 	           translations/paragon/src/i18n/messages:paragon \
 	           translations/frontend-platform/src/i18n/messages:frontend-platform \
 	           translations/frontend-app-authn/src/i18n/messages:frontend-app-authn
+	# Create fa_IR.json duplicates from fa.json
+	for dir in src/i18n/messages/*; do \
+		if [ -f "$$dir/fa.json" ]; then \
+			cp "$$dir/fa.json" "$$dir/fa_IR.json"; \
+		fi \
+	done
+
+	# Update index.js files to include fa_IR
+	for index_file in src/i18n/messages/*/index.js; do \
+		if [ -f "$${index_file%/*}/fa_IR.json" ]; then \
+			sed -i '/import messagesOfFaLanguage/a import messagesOfFaIrLanguage from '\''./fa_IR.json'\'';' "$$index_file"; \
+			sed -i "/'fa': messagesOfFaLanguage,/a\ \ 'fa-ir': messagesOfFaIrLanguage," "$$index_file"; \
+		fi \
+	done
 
 	$(intl_imports) paragon frontend-platform frontend-app-authn
 
