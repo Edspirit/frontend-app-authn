@@ -7,7 +7,7 @@ const useSetFont = () => {
   useEffect(() => {
     const setFont = () => {
       const body = document.querySelector('body');
-      if (locale === 'fa-ir') {
+      if (locale === 'fa-ir' || locale === 'fa') {
         body.className = 'lang_fa';
       } else if (locale === 'ar') {
         body.className = 'lang_ar';
